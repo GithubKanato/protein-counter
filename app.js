@@ -1,12 +1,15 @@
 const STORAGE_KEY = "protein-counter-state-v1";
 
 const presets = [
-  { name: "プロテイン", grams: 24, image: "assets/protein.svg" },
-  { name: "ゆで卵", grams: 6, image: "assets/egg.svg" },
-  { name: "鶏むね", grams: 30, image: "assets/chicken.svg" },
-  { name: "ギリシャヨーグルト", grams: 10, image: "assets/yogurt.svg" },
-  { name: "豆腐", grams: 12, image: "assets/tofu.svg" },
-  { name: "納豆", grams: 8, image: "assets/natto.svg" },
+  { name: "プロテイン", grams: 24, calories: 120, image: "assets/protein.svg", accent: "mint" },
+  { name: "オイコス", grams: 10, calories: 92, image: "assets/oikos.svg", accent: "blue" },
+  { name: "プロテインバー", grams: 15, calories: 200, image: "assets/protein-bar.svg", accent: "brown" },
+  { name: "ヨーグルト", grams: 4, calories: 65, image: "assets/plain-yogurt.svg", accent: "cream" },
+  { name: "ゆで卵", grams: 6, calories: 76, image: "assets/egg.svg", accent: "yellow" },
+  { name: "鶏むね", grams: 30, calories: 165, image: "assets/chicken.svg", accent: "salmon" },
+  { name: "ギリシャヨーグルト", grams: 10, calories: 100, image: "assets/yogurt.svg", accent: "blue" },
+  { name: "豆腐", grams: 12, calories: 90, image: "assets/tofu.svg", accent: "gray" },
+  { name: "納豆", grams: 8, calories: 100, image: "assets/natto.svg", accent: "tan" },
 ];
 
 const state = loadState();
@@ -19,6 +22,7 @@ const elements = {
   nextDay: document.querySelector("#next-day"),
   todayButton: document.querySelector("#today-button"),
   totalProtein: document.querySelector("#total-protein"),
+  totalCalories: document.querySelector("#total-calories"),
   goalProtein: document.querySelector("#goal-protein"),
   goalPercent: document.querySelector("#goal-percent"),
   progressBar: document.querySelector("#progress-bar"),
@@ -27,6 +31,7 @@ const elements = {
   customForm: document.querySelector("#custom-form"),
   customName: document.querySelector("#custom-name"),
   customAmount: document.querySelector("#custom-amount"),
+  customCalories: document.querySelector("#custom-calories"),
   undoButton: document.querySelector("#undo-button"),
   clearDay: document.querySelector("#clear-day"),
   logTitle: document.querySelector("#log-title"),
@@ -71,9 +76,11 @@ function bindEvents() {
     addEntry({
       name: elements.customName.value.trim() || "手入力",
       grams: Math.round(grams),
+      calories: parseOptionalNumber(elements.customCalories.value),
     });
     elements.customName.value = "";
     elements.customAmount.value = "";
+    elements.customCalories.value = "";
     elements.customAmount.blur();
   });
 
@@ -117,13 +124,18 @@ function renderPresets() {
   elements.presetButtons.innerHTML = "";
   for (const preset of presets) {
     const button = document.createElement("button");
-    button.className = "preset-button";
+    button.className = `preset-button preset-button--${preset.accent}`;
     button.type = "button";
     button.innerHTML = `
-      <img src="${preset.image}" alt="" aria-hidden="true" />
+      <span class="preset-image">
+        <img src="${preset.image}" alt="" aria-hidden="true" />
+      </span>
       <span class="preset-copy">
         <strong>${preset.name}</strong>
-        <span>${preset.grams}g</span>
+        <span class="preset-values">
+          <span>${preset.grams}g</span>
+          <small>${preset.calories} kcal</small>
+        </span>
       </span>
     `;
     button.addEventListener("click", () => addEntry(preset));
@@ -134,11 +146,13 @@ function renderPresets() {
 function render() {
   const entries = getDayEntries();
   const total = entries.reduce((sum, entry) => sum + entry.grams, 0);
+  const totalCalories = entries.reduce((sum, entry) => sum + (entry.calories || 0), 0);
   const percent = state.goal > 0 ? Math.round((total / state.goal) * 100) : 0;
   const cappedPercent = Math.min(percent, 100);
 
   elements.dateLabel.textContent = formatDateLabel(selectedDate);
   elements.totalProtein.textContent = total;
+  elements.totalCalories.textContent = totalCalories;
   elements.goalProtein.textContent = state.goal;
   elements.goalInput.value = state.goal;
   elements.goalPercent.textContent = `${percent}%`;
@@ -162,9 +176,10 @@ function renderLog(entries) {
     .forEach((entry) => {
       const item = document.createElement("li");
       item.className = "log-item";
+      const calories = entry.calories ? ` · ${entry.calories} kcal` : "";
       item.innerHTML = `
         <div class="log-name">${escapeHtml(entry.name)}</div>
-        <div class="log-meta">${entry.grams}g · ${entry.time}</div>
+        <div class="log-meta">${entry.grams}g${calories} · ${entry.time}</div>
         <button class="delete-entry" type="button" data-delete-id="${entry.id}" aria-label="${escapeHtml(entry.name)}を削除">×</button>
       `;
       elements.logList.append(item);
@@ -176,6 +191,7 @@ function addEntry(preset) {
     id: crypto.randomUUID(),
     name: preset.name,
     grams: preset.grams,
+    calories: preset.calories,
     time: new Intl.DateTimeFormat("ja-JP", {
       hour: "2-digit",
       minute: "2-digit",
@@ -185,6 +201,12 @@ function addEntry(preset) {
   lastDeleted = null;
   saveState();
   render();
+}
+
+function parseOptionalNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return null;
+  return Math.round(number);
 }
 
 function deleteEntry(id) {

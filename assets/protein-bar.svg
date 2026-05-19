@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="protein bar">
+  <rect width="96" height="96" rx="22" fill="#f0dcc4"/>
+  <path d="M20 39h56v26H20V39Z" fill="#7b4b2a" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M20 39h14v26H20V39Zm42 0h14v26H62V39Z" fill="#f2c94c" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M39 51h18" stroke="#fff0d6" stroke-width="5" stroke-linecap="round"/>
+  <path d="M42 59h12" stroke="#fff0d6" stroke-width="4" stroke-linecap="round"/>
+</svg>

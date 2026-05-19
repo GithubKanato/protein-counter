@@ -26,6 +26,7 @@
           <div>
             <p class="meter-label">摂取量</p>
             <p class="meter-value"><span id="total-protein">0</span><span>g</span></p>
+            <p class="calorie-total"><span id="total-calories">0</span> kcal</p>
           </div>
           <div class="goal-wrap" aria-label="目標達成率">
             <div class="goal-ring">
@@ -58,6 +59,10 @@
           <label>
             <span>g</span>
             <input id="custom-amount" type="number" min="1" max="300" step="1" inputmode="numeric" placeholder="25" required />
+          </label>
+          <label>
+            <span>kcal</span>
+            <input id="custom-calories" type="number" min="0" max="2000" step="1" inputmode="numeric" placeholder="120" />
           </label>
           <button class="primary-button" type="submit">追加</button>
         </form>
