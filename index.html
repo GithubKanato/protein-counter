@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Protein Counter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="summary" aria-labelledby="date-label">
+        <div class="summary__top">
+          <button class="icon-button" id="prev-day" type="button" aria-label="前の日">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div class="summary__date">
+            <p id="date-label" class="date-label"></p>
+            <button id="today-button" class="today-button" type="button">今日</button>
+          </div>
+          <button class="icon-button" id="next-day" type="button" aria-label="次の日">
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+
+        <div class="protein-meter">
+          <div>
+            <p class="meter-label">摂取量</p>
+            <p class="meter-value"><span id="total-protein">0</span><span>g</span></p>
+          </div>
+          <div class="goal-wrap" aria-label="目標達成率">
+            <div class="goal-ring">
+              <span id="goal-percent">0%</span>
+            </div>
+            <p><span id="goal-protein">100</span>g 目標</p>
+          </div>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+      </section>
+
+      <section class="quick-add" aria-labelledby="quick-add-title">
+        <div class="section-heading">
+          <h1 id="quick-add-title">プロテインを追加</h1>
+          <button id="undo-button" class="text-button" type="button" disabled>取り消し</button>
+        </div>
+        <div id="preset-buttons" class="preset-grid"></div>
+      </section>
+
+      <section class="custom-add" aria-labelledby="custom-add-title">
+        <h2 id="custom-add-title">手入力</h2>
+        <form id="custom-form" class="custom-form">
+          <label>
+            <span>名前</span>
+            <input id="custom-name" type="text" maxlength="18" placeholder="例: サラダチキン" />
+          </label>
+          <label>
+            <span>g</span>
+            <input id="custom-amount" type="number" min="1" max="300" step="1" inputmode="numeric" placeholder="25" required />
+          </label>
+          <button class="primary-button" type="submit">追加</button>
+        </form>
+      </section>
+
+      <section class="log-section" aria-labelledby="log-title">
+        <div class="section-heading">
+          <h2 id="log-title">今日の記録</h2>
+          <button id="clear-day" class="text-button danger" type="button">全削除</button>
+        </div>
+        <ol id="log-list" class="log-list"></ol>
+        <p id="empty-log" class="empty-log">まだ記録がありません。</p>
+      </section>
+
+      <section class="settings" aria-labelledby="settings-title">
+        <h2 id="settings-title">設定</h2>
+        <label class="goal-input">
+          <span>1日の目標</span>
+          <input id="goal-input" type="number" min="1" max="500" step="1" inputmode="numeric" />
+          <span>g</span>
+        </label>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
