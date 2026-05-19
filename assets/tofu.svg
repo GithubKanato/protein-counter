@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="tofu">
+  <rect width="96" height="96" rx="22" fill="#eef1e8"/>
+  <path d="M25 36 49 24l23 12-24 13-23-13Z" fill="#ffffff" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M25 36v28l23 13V49L25 36Z" fill="#f8fbf7" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M72 36v28L48 77V49l24-13Z" fill="#e9efe7" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M35 42 58 30" stroke="#dfe5dc" stroke-width="3" stroke-linecap="round"/>
+</svg>

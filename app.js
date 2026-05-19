@@ -1,12 +1,12 @@
 const STORAGE_KEY = "protein-counter-state-v1";
 
 const presets = [
-  { name: "プロテイン", grams: 24 },
-  { name: "ゆで卵", grams: 6 },
-  { name: "鶏むね", grams: 30 },
-  { name: "ギリシャヨーグルト", grams: 10 },
-  { name: "豆腐", grams: 12 },
-  { name: "納豆", grams: 8 },
+  { name: "プロテイン", grams: 24, image: "assets/protein.svg" },
+  { name: "ゆで卵", grams: 6, image: "assets/egg.svg" },
+  { name: "鶏むね", grams: 30, image: "assets/chicken.svg" },
+  { name: "ギリシャヨーグルト", grams: 10, image: "assets/yogurt.svg" },
+  { name: "豆腐", grams: 12, image: "assets/tofu.svg" },
+  { name: "納豆", grams: 8, image: "assets/natto.svg" },
 ];
 
 const state = loadState();
@@ -119,7 +119,13 @@ function renderPresets() {
     const button = document.createElement("button");
     button.className = "preset-button";
     button.type = "button";
-    button.innerHTML = `<strong>${preset.name}</strong><span>${preset.grams}g</span>`;
+    button.innerHTML = `
+      <img src="${preset.image}" alt="" aria-hidden="true" />
+      <span class="preset-copy">
+        <strong>${preset.name}</strong>
+        <span>${preset.grams}g</span>
+      </span>
+    `;
     button.addEventListener("click", () => addEntry(preset));
     elements.presetButtons.append(button);
   }
@@ -224,14 +230,11 @@ function parseDateKey(dateKey) {
 
 function formatDateLabel(dateKey) {
   const today = toDateKey(new Date());
-  const yesterdayDate = new Date();
-  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-  const yesterday = toDateKey(yesterdayDate);
 
   if (dateKey === today) return "今日";
-  if (dateKey === yesterday) return "昨日";
 
   return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
     month: "long",
     day: "numeric",
     weekday: "short",

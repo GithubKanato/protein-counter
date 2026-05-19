@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="protein shake">
+  <rect width="96" height="96" rx="22" fill="#dff3e6"/>
+  <path d="M31 22h34l-4 15H35l-4-15Z" fill="#f8fbf7"/>
+  <path d="M35 37h26l-4 39H39L35 37Z" fill="#ffffff" stroke="#18543b" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M38 47h20l-2 19H40l-2-19Z" fill="#7cc49a"/>
+  <path d="M30 22h36" stroke="#18543b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M53 20c2-8 7-12 15-12" stroke="#2f7d5c" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>

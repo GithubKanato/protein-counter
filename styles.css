@@ -97,6 +97,18 @@ button {
   line-height: 1;
 }
 
+.icon-button:disabled {
+  border-color: #e8eee8;
+  background: #f1f4ef;
+  color: #b5bfb9;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.icon-button:disabled:active {
+  transform: none;
+}
+
 .today-button,
 .text-button {
   border: 0;
@@ -232,8 +244,12 @@ h2 {
 }
 
 .preset-button {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
   min-height: 92px;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -242,8 +258,15 @@ h2 {
   box-shadow: 0 6px 18px rgba(22, 33, 29, 0.05);
 }
 
+.preset-button img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
 .preset-button strong,
-.preset-button span {
+.preset-copy,
+.preset-copy span {
   display: block;
 }
 
@@ -252,7 +275,7 @@ h2 {
   font-size: 1rem;
 }
 
-.preset-button span {
+.preset-copy > span {
   color: var(--green-deep);
   font-size: 1.4rem;
   font-weight: 900;
